@@ -1,0 +1,48 @@
+[fetch]
+	prune = true
+[diff]
+	tool = bc3
+[difftool]
+	prompt = false
+[merge]
+	tool = bc3
+[mergetool]
+	prompt = false
+	keepBackup = false
+[mergetool "bc3"]
+	trustExitCode = true
+	cmd = \"C:/Program Files (x86)/Beyond Compare 4/BComp.exe\" "-automerge -ignoreunimportant -reviewconflicts" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\"
+[difftool "bc3"]
+	cmd = \"C:/Program Files (x86)/Beyond Compare 4/BComp.exe\" \"$LOCAL\" \"$REMOTE\"
+[user]
+	name = John Hernley
+	email = jhernley@minitab.com
+[winUpdater]
+	recentlySeenVersion = 2.28.0.windows.1
+[core]
+	editor = \"C:\\Users\\jhernley\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" --wait
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[alias]
+	cam = commit --amend -m
+	com = checkout master
+	co = checkout
+	cob = checkout -b
+	cp = cherry-pick
+	st = status
+	ca = commit -am
+	puo = "!git push -u origin \"$(git symbolic-ref HEAD)\""
+	puonv = push --no-verify -u origin
+	brd = branch -D
+	br = branch
+	pause = stash save
+	resume = stash pop
+	c = commit -m
+	fmom = !bash -c 'git fetch $REMOTE && git merge origin/master'
+	diffprev = log -p -1
+	rmdead = !bash -c 'REMOTE=$1 && REMOTE=${REMOTE:="origin"} && echo "Fetching $REMOTE" && git fetch $REMOTE --prune  && git branch -vv | grep "gone]" | awk \"{ print \\$1 }\" | xargs git branch -D' -
+	top = "!f() { git log --format=format: --name-only --since=$2.month | egrep -v \"^$\" | egrep -vi \"\\.(json|rc|config|lia|mdf)$\" | sort | uniq -c | sort -r | head -$1; }; f"
+	
